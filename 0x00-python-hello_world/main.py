@@ -1,2 +1,2 @@
-x = 1
-print(x)
+#!/usr/bin/python3
+print("This is ALX")
