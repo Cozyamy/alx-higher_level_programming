@@ -1,56 +1,80 @@
 #include "lists.h"
-#include <stdlib.h>
 
 /**
- * reverse_array - reverses the content of an array of integers
- * @a: int array to reverse
- * @n: number of elements in the array
- * Return: concatenated string
+ * len_list - Count the elements of the list.
+ * @h: The head of the linked list.
+ * Return: Size of the list.
  */
-
-void reverse_array(int *a, int n)
+size_t len_list(listint_t *h)
 {
-        int *begin = a;
-        int *end;
-        int hold = 0;
+	size_t len = 0;
 
-        end = a + n - 1;
-        for (; begin < end; begin++, end--)
-        {
-                hold = *end;
-                *end = *begin;
-                *begin = hold;
-        }
+	for (; h; h = h->next)
+		len++;
+	return (len);
 }
 
 /**
- * is_palindrome - Return 1  if palindrome, 0 if not
- * @head: linked list
- * Return: Return 1  if palindrome, 0 if not
+ * rev_list - Revert the direction of a single list.
+ * @head: A pointer to the head of the linked list.
+ * Return: A head of the reverted list.
  */
+listint_t *rev_list(listint_t **head)
+{
+	listint_t *prev = NULL, *next = NULL, *current = NULL;
 
+	for (current = *head; current;)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+
+	*head = prev;
+	return (*head);
+}
+
+/**
+ * is_palindrome - Check if a singly linked list is a palindrome.
+ * @head: A pointer to the head of the linked list.
+ * Return: 0 if it is not a palindrome, 1 if it is a palindrome.
+ */
 int is_palindrome(listint_t **head)
 {
-        int size, *list, *rev;
-        listint_t *copy = *head;
+	listint_t *tmp, *half_rev, *tmp_rev;
+	size_t len = 0, i;
 
-        if (!head || !copy)
-                return (0);
-        if (!copy->next)
-                return (1);
+	if (*head == NULL || (*head)->next == NULL)
+		return (1);
 
-        list = malloc(sizeof(int *));
-        if (!list)
-                return (0);
-        rev = malloc(sizeof(int *));
-        if (!rev)
-                return (0);
-        for (size = 0; copy; copy = copy->next, size++)
-                list[size] = copy->n;
+	tmp = *head;
+	len = len_list(tmp);
 
-        list = rev;
-        reverse_array(rev, size);
-        if (list == rev)
-                return (1);
-        return (0);
+	/*Go to the middle*/
+	tmp = *head;
+	for (i = 0; i < (len / 2) - 1; i++)
+		tmp = tmp->next;
+
+	/*If the the list has exact middle: Compare the next node*/
+	if ((len % 2) == 0 && tmp->n != tmp->next->n)
+		return (0);
+
+	tmp = tmp->next->next;
+
+	/*"Reverse the second middle of the list*/
+	half_rev = rev_list(&tmp);
+	tmp_rev = half_rev;
+
+	/*Compare the two middles*/
+	for (tmp = *head; half_rev;)
+	{
+		if (tmp->n != half_rev->n)
+			return (0);
+		tmp = tmp->next;
+		half_rev = half_rev->next;
+	}
+	rev_list(&tmp_rev);
+
+	return (1);
 }
