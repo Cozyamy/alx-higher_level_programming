@@ -1,10 +1,5 @@
-#!/usr/bin/python3
-"""Define a class Square"""
-
-
+#!/usr/python3
 class Node:
-    """Representation of a Node"""
-
     def data(self):
         pass
     def next_node(self):
