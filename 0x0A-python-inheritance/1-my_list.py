@@ -1,17 +1,16 @@
 #!/usr/bin/python3
-""" Module that manipulates lists
+"""
+Module 1-my_list.
+Creates a class inheriting from the list class.
 """
 
 
 class MyList(list):
-    """ Class that inherits from list
-    """
+    """Class MyList inherits from list."""
 
     def print_sorted(self):
-        """ Prints self sortedly, without modifying the
-            original list
-        """
+        """Prints the list, in ascending sort."""
 
         new_list = self[:]
         new_list.sort()
-        print(new_list)
+        print("{}".format(new_list))
