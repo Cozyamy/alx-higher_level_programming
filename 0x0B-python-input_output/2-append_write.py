@@ -1,19 +1,16 @@
 #!/usr/bin/python3
-""" My module for reading files
-"""
+
+"""Appends a string at the end of a text file"""
 
 
-def read_lines(filename="", nb_lines=0):
-    """ Reads a certain amount of lines from a file
+def append_write(filename="", text=""):
+    """Appends a string at the end of a text file (UTF8)
     Args:
-        filename (str): the file to read
-        nb_lines (int): the numer of line to read
+        filename (str): name of the file to write
+        text (str): text to append to the file
+    Returns:
+        number of characters added
     """
-    linecount = 0
-    with open(filename, encoding="UTF-8") as f:
-        for line in f:
-            if nb_lines == linecount and nb_lines > 0:
-                break
-            else:
-                print(line, end="")
-            linecount += 1
+    with open(filename, "a", encoding="utf-8") as file:
+        characterAdded = file.write(text)
+        return characterAdded

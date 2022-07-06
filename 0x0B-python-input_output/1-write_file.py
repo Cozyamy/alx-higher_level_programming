@@ -1,15 +1,16 @@
 #!/usr/bin/python3
-""" My module for reading a file
-"""
+
+"""Writes a string to a text file"""
 
 
-def number_of_lines(filename=""):
-    """ Returns the number of lines in a file
+def write_file(filename="", text=""):
+    """Writes a string to a text file (UTF8)
     Args:
-        filename (str): the file to read
+        filename (str): name of the file to write
+        text (str): text to write to the file
+    Returns:
+        number of characters written
     """
-    linecount = 0
-    with open(filename, encoding="UTF-8") as f:
-        for line in f:
-            linecount += 1
-    return linecount
+    with open(filename, "w", encoding="utf-8") as file:
+        characterWritten = file.write(text)
+        return characterWritten

@@ -1,13 +1,16 @@
 #!/usr/bin/python3
-""" My module for writing to files
-"""
+
+"""JSON representation of an object"""
 
 
-def write_file(filename="", text=""):
-    """ Appends text to the end of a file
+import json
+
+
+def to_json_string(my_obj):
+    """Converts object to json string
     Args:
-        filename (str): the file to append to
-        text (str): the text to append
+        my_obj (object): object to serialize
+    Returns:
+        JSON representation of an object
     """
-    with open(filename, mode='w', encoding="UTF=8") as f:
-        return(f.write(text))
+    return json.dumps(my_obj)
